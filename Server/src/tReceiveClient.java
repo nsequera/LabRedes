@@ -29,7 +29,6 @@ public class tReceiveClient implements Runnable{
 	            ByteArrayInputStream bs = new ByteArrayInputStream(paqueteRecibido.getData());
 	            ObjectInputStream is = new ObjectInputStream (bs);
 	            m = (Message) is.readObject();
-	            System.out.println("Hola: "+m.getID());
 	            is.close();
                 socket.close();            
 	                      

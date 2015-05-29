@@ -1,0 +1,34 @@
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.util.Map;
+
+
+public class tRtxServer implements Runnable{
+	Map<String, Boolean> ackMessages;
+	public tRtxServer(Map<String, Boolean> ackMessage_) {
+		ackMessages = ackMessage_;
+	}
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void liste (){
+		 try{
+	     	DatagramSocket socket =new DatagramSocket(8887);
+	         socket.setBroadcast(true);
+	         byte[] mensajeRecibido = new byte[15000];
+	         DatagramPacket paqueteRecibido=new DatagramPacket(mensajeRecibido, mensajeRecibido.length);
+	         
+	         socket.receive(paqueteRecibido);
+	         String confirmation = new String(paqueteRecibido.getData()).trim();
+	         if (ackMessages.containsKey(confirmation)){
+	         	ackMessages.put(confirmation, true);
+	         }
+	         socket.close();	            
+	     }catch (Exception e){  
+	     }
+	}
+	
+	
+
+}

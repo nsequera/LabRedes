@@ -1,10 +1,11 @@
+
 import java.io.ByteArrayInputStream;
 import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.util.HashSet;
+import java.net.InetAddress;
 import java.util.Map;
-import java.util.Set;
+
 
 public class tReceiveServer implements Runnable{
 
@@ -20,12 +21,26 @@ public class tReceiveServer implements Runnable{
 	            DatagramPacket paqueteRecibido=new DatagramPacket(mensajeRecibido, mensajeRecibido.length);
 	            
 	            socket.receive(paqueteRecibido);
-	            String confirmation = new String(paqueteRecibido.getData()).trim();
-	            if (ackMessages.containsKey(confirmation)){
-	            	ackMessages.put(confirmation, true);
-	            	System.out.println("El mensaje llegó al servidor.");
-	            	flag = false;
+
+	            ByteArrayInputStream bs = new ByteArrayInputStream(paqueteRecibido.getData());
+	            ObjectInputStream is = new ObjectInputStream (bs);
+	            Object o = is.readObject();
+	            
+	            if (o instanceof MessageACK){
+	            	MessageACK m = (MessageACK)o;
+	            	if (InetAddress.getLocalHost().getHostAddress().equals(m.getIP())){
+	            		 if (ackMessages.containsKey(m.getACK())){
+	            			ackMessages.put(m.getACK(), true);
+	     	            	System.out.println("El mensaje llegó al servidor.");
+	     	            	flag = false;
+	            		 }
+	            	}
 	            }
+	            
+	            
+	            is.close();
+                socket.close();     
+	            
 	            socket.close();	            
 	        }catch (Exception e){  
 	        }

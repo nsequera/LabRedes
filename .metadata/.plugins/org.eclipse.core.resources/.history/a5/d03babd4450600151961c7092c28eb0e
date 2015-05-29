@@ -1,0 +1,7 @@
+import java.io.Serializable;
+
+
+public class MessageACK implements Serializable {
+	private String idEstacion;
+	private String idMensaje;
+}

@@ -1,0 +1,21 @@
+import java.io.Serializable;
+
+import Message.Sensor;
+
+
+public class MessageACK implements Serializable {
+	private String idEstacion;
+	private String idMensaje;
+	MessageACK (String idEstacion_){
+		idEstacion = idDestino_;
+		idMensaje = idMensaje_;
+	}
+
+	public String getIP (){
+		return idEstacion;
+	}
+	
+	public String getID (){
+		return idMensaje;
+	}
+}
