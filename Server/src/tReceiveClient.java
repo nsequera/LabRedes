@@ -19,6 +19,7 @@ public class tReceiveClient implements Runnable{
 		  System.out.println("---->Escuchando clientes.");   
 	        Message m = null;
 	        try{
+	        	
 	        	DatagramSocket socket =new DatagramSocket(8888);
 	            socket.setBroadcast(true);
 	            byte[] mensajeRecibido = new byte[15000];
@@ -28,6 +29,7 @@ public class tReceiveClient implements Runnable{
 	            ByteArrayInputStream bs = new ByteArrayInputStream(paqueteRecibido.getData());
 	            ObjectInputStream is = new ObjectInputStream (bs);
 	            m = (Message) is.readObject();
+	            System.out.println("Hola: "+m.getID());
 	            is.close();
                 socket.close();            
 	                      
@@ -40,7 +42,7 @@ public class tReceiveClient implements Runnable{
     public void run() {
       while(true){
     	  Message message = listenNewClients();
-    	  if(message != null && !mRecibidos.contains(message.getID())&& message.getIP().equals(dirServer)){
+    	  if(message != null && !mRecibidos.contains(message.getID())){
     		  System.out.println("--->Id Mensaje: "+message.getID());
     		  mRecibidos.add(message.getID());
     		  SendMessage sendProductsToClient = new SendMessage(message.getIP(),message.getID());	  
