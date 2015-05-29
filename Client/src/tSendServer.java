@@ -35,7 +35,7 @@ public class tSendServer implements Runnable{
 			os.writeObject(m);
 			byte[] mensajeEnviar = bs.toByteArray();
             
-			DatagramPacket paqueteEnviar= new DatagramPacket(mensajeEnviar, mensajeEnviar.length,InetAddress.getByName(dirServer),8887);
+			DatagramPacket paqueteEnviar= new DatagramPacket(mensajeEnviar, mensajeEnviar.length,InetAddress.getByName(dirServer),8888);
             System.out.println("Enviando: "+m.getID());
             ackMessage.put(m.getID(), new Boolean(false));
             socket.send(paqueteEnviar);

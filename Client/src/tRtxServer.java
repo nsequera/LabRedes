@@ -17,22 +17,25 @@ import java.util.Set;
 public class tRtxServer implements Runnable{
 	Map<String, Boolean> ackMessages;
 	Set<String> messages;
-	int p;
-	public tRtxServer( int p_ ) {
+	public tRtxServer( ) {
 		messages  = new HashSet<String>();
-		p = p_;
 	}
 	public void run() {
-		System.out.println("jjf");
 		while (true){
 			listen ();
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}
 	public void listen (){
 		DatagramSocket socket;
 		try {
-			socket = new DatagramSocket(p);
+			socket = new DatagramSocket(8889);
 			socket.setBroadcast(true);
 	        byte[] mensajeRecibido = new byte[15000];
 	        DatagramPacket paqueteRecibido=new DatagramPacket(mensajeRecibido, mensajeRecibido.length);
@@ -43,7 +46,6 @@ public class tRtxServer implements Runnable{
 	        Object o = is.readObject();
 	        is.close();
 	        socket.close();
-	        System.out.println(o.getClass());
 	        if (o instanceof Message){
 	        	Message m = (Message) o;
 	        	if (!m.getIP().equals(InetAddress.getLocalHost().getHostAddress()) && !messages.contains(m.getID())){
@@ -79,7 +81,7 @@ public class tRtxServer implements Runnable{
 			os.writeObject(m);
 			byte[] mensajeEnviar = bs.toByteArray();
             
-			DatagramPacket paqueteEnviar= new DatagramPacket(mensajeEnviar, mensajeEnviar.length,InetAddress.getByName("192.168.173.255"),8887);
+			DatagramPacket paqueteEnviar= new DatagramPacket(mensajeEnviar, mensajeEnviar.length,InetAddress.getByName("192.168.173.255"),8888);
             System.out.println("----->Reenviando: "+m.getID());
             
             socket.send(paqueteEnviar);
