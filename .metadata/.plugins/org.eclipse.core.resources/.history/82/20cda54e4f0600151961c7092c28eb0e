@@ -20,16 +20,17 @@ public class tRtxServer implements Runnable{
 	int p;
 	public tRtxServer( int p_ ) {
 		messages  = new HashSet<String>();
-		p = p_;
+		p = p_M
 	}
 	public void run() {
 		System.out.println("jjf");
 		while (true){
-			listen ();
+			listen (8888);
+			//listen(8890);
 		}
 		
 	}
-	public void listen (){
+	public void listen (int p){
 		DatagramSocket socket;
 		try {
 			socket = new DatagramSocket(p);

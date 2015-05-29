@@ -25,11 +25,11 @@ public class tRtxServer implements Runnable{
 	public void run() {
 		System.out.println("jjf");
 		while (true){
-			listen ();
+			listen (p);
 		}
 		
 	}
-	public void listen (){
+	public void listen (int p){
 		DatagramSocket socket;
 		try {
 			socket = new DatagramSocket(p);

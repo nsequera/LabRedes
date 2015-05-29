@@ -11,10 +11,8 @@ public class Client {
 		dirServer = "192.168.173.1";
 		ackMessage = new HashMap<String, Boolean>();
 		tSendServer tsendserver = new tSendServer(dirServer,ackMessage);
-		Thread te = new Thread(new tRtxServer(8887));
-		Thread te2 = new Thread(new tRtxServer(8889));
+		Thread te = new Thread(new tRtxServer());
 		te.start();
-		te2.start();
 		while (true){
 			try {
 				Thread.sleep(3000);

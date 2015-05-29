@@ -14,7 +14,6 @@ public class Client {
 		Thread te = new Thread(new tRtxServer(8887));
 		Thread te2 = new Thread(new tRtxServer(8889));
 		te.start();
-		te2.start();
 		while (true){
 			try {
 				Thread.sleep(3000);
