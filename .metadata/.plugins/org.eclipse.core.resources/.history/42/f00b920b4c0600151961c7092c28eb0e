@@ -35,7 +35,7 @@ public class tRtxServer implements Runnable{
 	public void listen (){
 		DatagramSocket socket;
 		try {
-			socket = new DatagramSocket(8889);
+			socket = new DatagramSocket(8888);
 			socket.setBroadcast(true);
 	        byte[] mensajeRecibido = new byte[15000];
 	        DatagramPacket paqueteRecibido=new DatagramPacket(mensajeRecibido, mensajeRecibido.length);
@@ -46,6 +46,7 @@ public class tRtxServer implements Runnable{
 	        Object o = is.readObject();
 	        is.close();
 	        socket.close();
+	        //FALTA
 	        if (o instanceof Message){
 	        	Message m = (Message) o;
 	        	if (!m.getIP().equals(InetAddress.getLocalHost().getHostAddress()) && !messages.contains(m.getID())){
@@ -53,7 +54,7 @@ public class tRtxServer implements Runnable{
 	        		tx(m);
 	        	}
 	        }else if (o instanceof MessageACK){
-	        	MessageACK mACK = (MessageACK) o;
+	        	Message mACK = (Message) o;
 	        	if (!mACK.getIP().equals(InetAddress.getLocalHost().getHostAddress()) && !messages.contains(mACK.getID())){
 	        		messages.add(mACK.getID());
 	        		tx(mACK);
@@ -82,7 +83,7 @@ public class tRtxServer implements Runnable{
 			byte[] mensajeEnviar = bs.toByteArray();
             
 			DatagramPacket paqueteEnviar= new DatagramPacket(mensajeEnviar, mensajeEnviar.length,InetAddress.getByName("192.168.173.255"),8888);
-            System.out.println("----->Reenviando: "+m.getID());
+            System.out.println("Reenviando: "+m.getID());
             
             socket.send(paqueteEnviar);
             socket.close();
@@ -99,32 +100,6 @@ public class tRtxServer implements Runnable{
 		}
 	}
 	
-	private void tx(MessageACK m) {
-		try {
-			DatagramSocket socket =new DatagramSocket();
-						
-			ByteArrayOutputStream bs = new ByteArrayOutputStream();
-			ObjectOutputStream os = new ObjectOutputStream(bs);
-			os.writeObject(m);
-			byte[] mensajeEnviar = bs.toByteArray();
-            
-			DatagramPacket paqueteEnviar= new DatagramPacket(mensajeEnviar, mensajeEnviar.length,InetAddress.getByName("192.168.173.255"),8889);
-            System.out.println("----->Reenviando: "+m.getID());
-            
-            socket.send(paqueteEnviar);
-            socket.close();
-                  
-		} catch (SocketException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
 
 }

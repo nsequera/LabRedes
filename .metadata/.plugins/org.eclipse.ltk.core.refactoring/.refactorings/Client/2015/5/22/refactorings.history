@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;m&apos; in &apos;tRtxServer.listen()&apos; to &apos;mACK&apos;&#x0D;&#x0A;- Original project: &apos;Client&apos;&#x0D;&#x0A;- Original element: &apos;tRtxServer.listen().m&apos;&#x0D;&#x0A;- Renamed element: &apos;m&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;m&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;{tRtxServer.java[tRtxServer~listen@m!1560!1583!1568!1568!QMessage;!0!false" name="mACK" references="true" stamp="1432935663429" version="1.0"/>
+</session>
