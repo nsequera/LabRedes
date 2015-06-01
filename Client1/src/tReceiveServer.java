@@ -64,7 +64,6 @@ public class tReceiveServer implements Runnable{
 		            	}
 	            	}else if (o instanceof Message) {
 		            	try {
-		            		System.out.println("---->meee");
 		        			ByteArrayOutputStream bso = new ByteArrayOutputStream();
 		        			ObjectOutputStream os = new ObjectOutputStream(bso);
 		        			os.writeObject(o);
