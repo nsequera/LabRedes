@@ -28,8 +28,9 @@ public class tReceiveServer implements Runnable{
 	            socket.receive(paqueteRecibido);
 	            ByteArrayInputStream bs = new ByteArrayInputStream(paqueteRecibido.getData());
 	            ObjectInputStream is = new ObjectInputStream (bs);
-	            Object o = is.readObject();
-	 	            if (o != null ){
+	           
+	            Object o = is.readObject(); 
+	            System.out.println("------------->>"+o.getClass());
 	            	if (o instanceof MessageACK){
 		            	MessageACK m = (MessageACK)o;
 		            	if (InetAddress.getLocalHost().getHostAddress().equals(m.getIP())){
@@ -63,6 +64,7 @@ public class tReceiveServer implements Runnable{
 		            	}
 	            	}else if (o instanceof Message) {
 		            	try {
+		            		System.out.println("---->meee");
 		        			ByteArrayOutputStream bso = new ByteArrayOutputStream();
 		        			ObjectOutputStream os = new ObjectOutputStream(bso);
 		        			os.writeObject(o);
@@ -87,13 +89,11 @@ public class tReceiveServer implements Runnable{
 		        			e.printStackTrace();
 		        		}
 	            	}	
-	            }else
-	            	System.out.println("NULLLL");
 	            is.close(); 
 	            socket.close();
 		   }catch (Exception e){  
 		   }
-		  }  
+		  }
 	}
 	
 	public tReceiveServer( Map<String, Boolean> ack_) {

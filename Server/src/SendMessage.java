@@ -31,6 +31,7 @@ public class SendMessage extends Thread {
 			byte[] mensajeEnviar = bs.toByteArray();
 			DatagramPacket paqueteEnviar= new DatagramPacket(mensajeEnviar, mensajeEnviar.length,InetAddress.getByName("192.168.173.255"),8889);
             System.out.println("-->Enviando confirmación.");
+            Thread.sleep(500);
             socket.send(paqueteEnviar);
             System.out.println("->Confirmación enviada.");
             socket.close();
@@ -42,6 +43,9 @@ public class SendMessage extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
