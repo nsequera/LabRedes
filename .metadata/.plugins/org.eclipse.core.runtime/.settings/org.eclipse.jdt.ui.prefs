@@ -1,3 +1,4 @@
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="java.lang.Runnable"><rhs name\="tSendServer"/><rhs name\="java.lang.Thread"/><rhs name\="tRtxServer"/></lhs><lhs name\="tSendServer"><rhs name\="tSendServer"/></lhs><lhs name\="java.lang.Thread"><rhs name\="java.lang.Thread"/></lhs><lhs name\="tRtxServer"><rhs name\="tRtxServer"/></lhs><lhs name\="Message"><rhs name\="Message"/></lhs><lhs name\="java.util.Collection"><rhs name\="java.util.HashSet"/></lhs><lhs name\="java.lang.Iterable"><rhs name\="java.util.HashSet"/></lhs><lhs name\="java.util.Set"><rhs name\="java.util.HashSet"/></lhs><lhs name\="MessageACK"><rhs name\="MessageACK"/></lhs></history>
 content_assist_number_of_computers=13
 content_assist_proposals_background=255,255,255
 content_assist_proposals_foreground=0,0,0
