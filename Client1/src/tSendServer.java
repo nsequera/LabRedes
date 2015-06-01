@@ -18,11 +18,11 @@ public class tSendServer implements Runnable{
 	public tSendServer(String dirServer_, Map<String, Boolean> ackMessage_) {
 		dirServer = dirServer_;
 		ackMessage = ackMessage_;
+		new Thread(new tReceiveServer (ackMessage)).start();
 	}
 
 	public void run() {
 		sendMessage();
-		
 	}
 	
 	public static void sendMessage (){
@@ -40,9 +40,7 @@ public class tSendServer implements Runnable{
             ackMessage.put(m.getID(), new Boolean(false));
             socket.send(paqueteEnviar);
             socket.close();
-            
-            
-            new Thread(new tReceiveServer (ackMessage)).start();        
+      
 		} catch (SocketException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -11,16 +11,17 @@ public class Client {
 		dirServer = "192.168.173.1";
 		ackMessage = new HashMap<String, Boolean>();
 		tSendServer tsendserver = new tSendServer(dirServer,ackMessage);
+		
 		while (true){
+			Thread t = new Thread(tsendserver);
+			t.start();
 			try {
-				Thread.sleep(3000);
+				Thread.sleep(15000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			Thread t = new Thread(tsendserver);
-			t.start();
-			
+
 		}
 
 	}
