@@ -16,7 +16,6 @@ public class tReceiveClient implements Runnable{
 	}
 
 	public Message listenNewClients(){
-		  System.out.println("---->Escuchando clientes.");   
 	        Message m = null;
 	        try{
 	        	
@@ -28,10 +27,14 @@ public class tReceiveClient implements Runnable{
 	            socket.receive(paqueteRecibido);
 	            ByteArrayInputStream bs = new ByteArrayInputStream(paqueteRecibido.getData());
 	            ObjectInputStream is = new ObjectInputStream (bs);
-	            m = (Message) is.readObject();
+	            Object o = is.readObject();
 	            is.close();
-                socket.close();            
-	                      
+                socket.close();   
+	            if (o instanceof Message){
+	            	m = (Message)o;
+	            }else{
+	            	return null;
+	            }                  
 	        }catch (Exception e){
 	        
 	        }
@@ -39,6 +42,7 @@ public class tReceiveClient implements Runnable{
 	}
 	
     public void run() {
+    	System.out.println("---->Escuchando clientes.");   
       while(true){
     	  Message message = listenNewClients();
     	  if(message != null && !mRecibidos.contains(message.getID())){

@@ -10,13 +10,10 @@ import java.net.UnknownHostException;
 
 
 public class SendMessage extends Thread {
-	private String clientIP;
-	private String messageID;
+	
 	private MessageACK mACK;
 	public SendMessage(String ipOrigen, String messageACK) {
 		super();
-		this.clientIP = ipOrigen;
-		this.messageID = messageACK;
 		mACK = new MessageACK(ipOrigen, messageACK);
 	}
 	
