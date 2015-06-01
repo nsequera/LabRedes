@@ -20,7 +20,7 @@ public class tReceiveClient implements Runnable{
 	        Message m = null;
 	        try{
 	        	
-	        	DatagramSocket socket =new DatagramSocket(8888);
+	        	DatagramSocket socket =new DatagramSocket(8889);
 	            socket.setBroadcast(true);
 	            byte[] mensajeRecibido = new byte[15000];
 	            DatagramPacket paqueteRecibido=new DatagramPacket(mensajeRecibido, mensajeRecibido.length);
