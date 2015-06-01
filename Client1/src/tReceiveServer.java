@@ -35,7 +35,7 @@ public class tReceiveServer implements Runnable{
 		            	if (InetAddress.getLocalHost().getHostAddress().equals(m.getIP())){
 		            		 if (ackMessages.containsKey(m.getACK())){
 		            			ackMessages.put(m.getACK(), true);
-		     	            	System.out.println("El mensaje llegó al servidor.");
+		     	            	System.out.println("El mensaje llegó al servidor. "+m.getID());
 		     	            	
 		            		 }
 		            	}else{
