@@ -9,12 +9,15 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 
 public class tReceiveServer implements Runnable{
 
 	private static Map<String, Boolean> ackMessages;
+	private static Set<String> rMessage;
 	public static void listenConfirmation(){
 		  boolean flag = true;
 		  int ite = 500000;
@@ -46,7 +49,10 @@ public class tReceiveServer implements Runnable{
 	            			os.writeObject(m);
 	            			byte[] mensajeEnviar = bso.toByteArray();      
 	            			DatagramPacket paqueteEnviar= new DatagramPacket(mensajeEnviar, mensajeEnviar.length,InetAddress.getByName("192.168.173.255"),8889);
-	                        System.out.println("----->Reenviando: "+m.getID());  
+	                        if (!rMessage.contains(m.getID())){
+	                        	rMessage.add(m.getID());
+	                        	System.out.println("----->ReenviandoACK: "+m.getID());  
+	                        }
 	                        socket.send(paqueteEnviar);    
 	            		} catch (SocketException e) {
 	            			// TODO Auto-generated catch block
@@ -59,6 +65,31 @@ public class tReceiveServer implements Runnable{
 	            			e.printStackTrace();
 	            		}
 	            	}
+	            }else if (o instanceof Message) {
+	            	try {
+	        			ByteArrayOutputStream bso = new ByteArrayOutputStream();
+	        			ObjectOutputStream os = new ObjectOutputStream(bso);
+	        			os.writeObject(o);
+	        			byte[] mensajeEnviar = bso.toByteArray();
+	                    
+	        			DatagramPacket paqueteEnviar= new DatagramPacket(mensajeEnviar, mensajeEnviar.length,InetAddress.getByName("192.168.173.255"),8888);
+	                    
+	        			if (rMessage.contains(((Message) o).getID())){
+	        				rMessage.add(((Message) o).getID());
+	                    	System.out.println("----->ReenviandoM: "+((Message) o).getID());
+	        			}
+	                    socket.send(paqueteEnviar);
+	                          
+	        		} catch (SocketException e) {
+	        			// TODO Auto-generated catch block
+	        			e.printStackTrace();
+	        		} catch (UnknownHostException e) {
+	        			// TODO Auto-generated catch block
+	        			e.printStackTrace();
+	        		} catch (IOException e) {
+	        			// TODO Auto-generated catch block
+	        			e.printStackTrace();
+	        		}
 	            }
 	              
 	            is.close(); 
@@ -73,6 +104,7 @@ public class tReceiveServer implements Runnable{
 	public tReceiveServer( Map<String, Boolean> ack_) {
 		super();
 		ackMessages = ack_;
+		rMessage = new HashSet<String>();
 
 	}
 	
